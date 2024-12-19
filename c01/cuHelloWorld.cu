@@ -1,3 +1,6 @@
+//
+// Created by Gary27 on 2024/12/19.
+//
 #include <cstdio>
 #include <iostream>
 #include <chrono>
@@ -10,12 +13,11 @@ __global__ void ss(){
     }
 }
 
+
+
 int main(){
     ss<<<1, 10>>>();
-
-//    std::chrono::
-
-//    cudaDeviceReset();
-    // cudaDeviceSynchronize();
+    synchronizeDeviceIfNecessary();
+    cudaDeviceReset();
     return 0;
 }

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/CudaCProgramming.iml" filepath="$PROJECT_DIR$/.idea/CudaCProgramming.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/cudacprogramming.iml" filepath="$PROJECT_DIR$/.idea/cudacprogramming.iml" />
     </modules>
   </component>
 </project>

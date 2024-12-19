@@ -16,6 +16,17 @@
     } \
 }
 
+constexpr int CUDA_COMPUTE_CAPABILITY_900 = 900;
+
+inline void synchronizeDeviceIfNecessary() {
+#if __CUDA__ARCH__ >= CUDA_COMPUTE_CAPABILITY_900
+    cudaDeviceSynchronize();
+#else
+    printf("Running on sm_90+ or newer. Synchronization skipped.\n");
+#endif
+
+}
+
 void checkResult(float *hostRef, float  *gpuRef, const int N){
     double epsilon = 1.0E-8;
     int match = 1;

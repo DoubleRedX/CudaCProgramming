@@ -2,11 +2,15 @@
 <project version="4">
   <component name="PublishConfigData" remoteFilesAllowedToDisappearOnAutoupload="false">
     <serverData>
-      <paths name="华为云服务器 (2e2816b5-e1be-48cc-ad3f-8da977598b65)">
+      <paths name="weitu11_env_cuda (40ffda92-a6e4-42e3-b6e5-a38abe5a9d40)">
         <serverdata>
           <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/codes/cprojects/book_cuda_c_programming" local="$PROJECT_DIR$" />
           </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-debug-weitu11_env_cuda" />
+            <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-debug-weitu11_env_cuda" />
+          </excludedPaths>
         </serverdata>
       </paths>
     </serverData>
