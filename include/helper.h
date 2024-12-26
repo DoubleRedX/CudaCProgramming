@@ -27,7 +27,7 @@ inline void synchronizeDeviceIfNecessary() {
 
 }
 
-void checkResult(float *hostRef, float  *gpuRef, const int N){
+inline void checkResult(float *hostRef, float  *gpuRef, const int N){
     double epsilon = 1.0E-8;
     int match = 1;
     for(int i=0;i<N;++i){
@@ -42,7 +42,15 @@ void checkResult(float *hostRef, float  *gpuRef, const int N){
 }
 
 
-
+#define CUDA_CHECK(call)                                                       \
+    do {                                                                       \
+        cudaError_t err = call;                                                \
+        if (err != cudaSuccess) {                                              \
+            std::cerr << "CUDA Error at " << __FILE__ << ":" << __LINE__       \
+                      << " - " << cudaGetErrorString(err) << std::endl;        \
+            exit(EXIT_FAILURE);                                                \
+        }                                                                      \
+    } while (0)
 
 
 #endif //CUDACPROGRAMMING_HELPER_H
