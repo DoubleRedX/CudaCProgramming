@@ -14,7 +14,7 @@ set_target_properties(c01_aux PROPERTIES CXX_STANDARD 17)
 link_libraries(c01_aux)
 
 add_executable(c01_cuHelloWorld cuHelloWorld.cu)
-add_executable(c01_vecAdd c01_main_pro_with_device_pro.cu)
+add_executable(c01_vecAdd c01_vecAdd.cu)
 add_executable(c01_kernel_timer_chrono c01_kernel_timer_chrono.cu)
 add_executable(c01_kernel_timer_cudaEvent c01_kernel_timer_cudaEvent.cu)
 add_executable(c01_kernel_organize_thread c01_organize_thread.cu)

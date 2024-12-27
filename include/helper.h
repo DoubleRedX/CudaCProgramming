@@ -6,6 +6,7 @@
 #define CUDACPROGRAMMING_HELPER_H
 
 #include <cmath>
+#include <iostream>
 
 #define CHECK(call) { \
     const cudaError_t error = call; \
