@@ -8,7 +8,7 @@
 
 int main(){
 
-  const char *command = "ls -l"; // 要执行的命令
+  const char *command = "nvidia-smi "; // 要执行的命令
   char buffer[128];
 
   // 打开命令管道
