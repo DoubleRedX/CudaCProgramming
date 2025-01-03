@@ -21,6 +21,7 @@ void coutNvidiaDeviceInfo(int deviceCnt = 0) {
     std::cout << "CUDA Runtime Version: " << cudaRuntimeVersion / 1000 << "." << (cudaRuntimeVersion % 1000) / 10 << std::endl;
     std::cout << "  Compute Capability: " << deviceProp.major << "." << deviceProp.minor << std::endl;
     std::cout << "  Total Global Memory: " << deviceProp.totalGlobalMem / (1024 * 1024) << " MB" << std::endl;
+    std::cout << "  Total Const Memory: " << deviceProp.totalConstMem / 1024 << " KB" << std::endl;
     std::cout << "  Shared Memory per Block: " << deviceProp.sharedMemPerBlock / 1024 << " KB" << std::endl;
     std::cout << "  Registers per Block: " << deviceProp.regsPerBlock << std::endl;
     std::cout << "  Warp Size: " << deviceProp.warpSize << std::endl;
@@ -32,7 +33,8 @@ void coutNvidiaDeviceInfo(int deviceCnt = 0) {
     std::cout << "  Memory Bus Width: " << deviceProp.memoryBusWidth << " bits" << std::endl;
     std::cout << "  L2 Cache Size: " << deviceProp.l2CacheSize / (1024 * 1024) << " KB" << std::endl;
     std::cout << "  Max Threads per Multiprocessor: " << deviceProp.maxThreadsPerMultiProcessor << std::endl;
-    std::cout << "  Multiprocessor Count: " << deviceProp.multiProcessorCount << std::endl;
+    std::cout << "  Max Warps per Multiprocessor: " << deviceProp.maxThreadsPerMultiProcessor / 32 << std::endl;
+    std::cout << "  Multiprocessor Count: " << deviceProp.multiProcessorCount << std::endl;  // sm个数
     std::cout << std::endl;
   }
 }

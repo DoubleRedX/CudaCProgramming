@@ -48,19 +48,25 @@ __global__ void matrix_sum_2d_grid_1d_block(float *a, float *b, float *c, int m,
 }
 
 
-int main() {
+int main(int argc, char **argv) {
+    int dimx = 32, dimy = 32;
+    if (argc != 0) {
+        dimx = atoi(argv[1]);
+        dimy = atoi(argv[2]);
+        std::cout << "dimx: " << dimx << ", dimy: " << dimy << std::endl;
+    }
     int device = 0;
-    cudaDeviceProp prop;
-    CUDA_CHECK(cudaGetDeviceProperties(&prop, device));
-    std::cout << "Device name: " << prop.name << std::endl;
-    std::cout << "Compute capability: " << prop.major << "." << prop.minor << std::endl;
-    std::cout << "Multiprocessor count: " << prop.multiProcessorCount << std::endl;
-    std::cout << "Total global memory: " << prop.totalGlobalMem / (1024 * 1024) << " MB" << std::endl;
-    std::cout << "Total shared memory per block: " << prop.sharedMemPerBlock / 1024 << " KB" << std::endl;
-    std::cout << "Total registers per block: " << prop.regsPerBlock << std::endl;
-    std::cout << "Warp size: " << prop.warpSize << std::endl;
-    std::cout << "Maximum threads per block: " << prop.maxThreadsPerBlock << std::endl;
-    std::cout << "Maximum threads per multiprocessor: " << prop.maxThreadsPerMultiProcessor << std::endl;
+    // cudaDeviceProp prop;
+    // CUDA_CHECK(cudaGetDeviceProperties(&prop, device));
+    // std::cout << "Device name: " << prop.name << std::endl;
+    // std::cout << "Compute capability: " << prop.major << "." << prop.minor << std::endl;
+    // std::cout << "Multiprocessor count: " << prop.multiProcessorCount << std::endl;
+    // std::cout << "Total global memory: " << prop.totalGlobalMem / (1024 * 1024) << " MB" << std::endl;
+    // std::cout << "Total shared memory per block: " << prop.sharedMemPerBlock / 1024 << " KB" << std::endl;
+    // std::cout << "Total registers per block: " << prop.regsPerBlock << std::endl;
+    // std::cout << "Warp size: " << prop.warpSize << std::endl;
+    // std::cout << "Maximum threads per block: " << prop.maxThreadsPerBlock << std::endl;
+    // std::cout << "Maximum threads per multiprocessor: " << prop.maxThreadsPerMultiProcessor << std::endl;
 
     cudaSetDevice(device);
     constexpr int m = 10000;
