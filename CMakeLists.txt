@@ -15,6 +15,7 @@ set(CMAKE_CUDA_STANDARD 17)
 include_directories(include)
 
 add_subdirectory(c01)
+add_subdirectory(c03)
 
 ##set_target_properties(CudaCProgramming PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
 #
