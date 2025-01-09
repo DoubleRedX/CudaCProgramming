@@ -33,3 +33,5 @@ add_subdirectory(c03)
 #
 #
 #add_executable(2d_grid 2d_grid.cu)
+
+add_executable(main main.cpp)

@@ -13,7 +13,7 @@ __global__ void kernel_reduce_1dim(float *d_in, float *d_out, int n) {
   if (idx >= n) return;
   float *d_in_block = d_in + blockDim.x * blockIdx.x;
   for (int stride = 1; stride < blockDim.x; stride *= 2) {
-    if (tid % (2 * stride) == 0) {
+    if (tid % (2 * stride) == 0) {  // 限制线程的id为2的倍数
       d_in_block[tid] += d_in_block[tid + stride];
     }
     __syncthreads();
@@ -21,7 +21,18 @@ __global__ void kernel_reduce_1dim(float *d_in, float *d_out, int n) {
   if (tid == 0) d_out[blockIdx.x] = d_in_block[0];
 }
 
-__global__
+__global__ void kernel_reduce_1dim_v2(float *d_in, float *d_out, int n){
+    const auto tid = threadIdx.x;
+
+    for (unsigned int i=1,j=2;i<blockDim.x;i*=2,j*=2){
+        auto ori = tid * j;  // 当前线程的offset从1 2 4 8 16 ...
+        auto bias = ori + i;  // tid到数据的索引 从*2(0->0 1->2 2->4 ...) *4(0->0 1->4 2->8)
+        d_in[ori] += d_in[bias];
+        __syncthreads();
+    }
+    //
+
+}
 
 int main(){
   constexpr int N = 1024;
