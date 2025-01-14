@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" remoteFilesAllowedToDisappearOnAutoupload="false">
+  <component name="PublishConfigData" remoteFilesAllowedToDisappearOnAutoupload="false" confirmBeforeUploading="false">
+    <option name="confirmBeforeUploading" value="false" />
     <serverData>
       <paths name="weitu11_env_cuda (40ffda92-a6e4-42e3-b6e5-a38abe5a9d40)">
         <serverdata>
@@ -11,6 +12,20 @@
             <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-debug-weitu11_env_cuda" />
             <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-debug-weitu11_env_cuda" />
           </excludedPaths>
+        </serverdata>
+      </paths>
+      <paths name="weitu16_dtk (0a3efbeb-7af0-4af6-82ff-7230701edf75)">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="weitu16_rocm (57b4eefe-98f8-48c6-9d70-93edcbeee35d)">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
         </serverdata>
       </paths>
     </serverData>
