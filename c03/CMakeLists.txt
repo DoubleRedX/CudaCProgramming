@@ -1,2 +1,3 @@
 
 add_executable(c01_reduce_1dim c01_reduce_1dim.cu)
+add_executable(c03_reduce_1dim_unroll c03_reduce_1dim_unroll.cu)

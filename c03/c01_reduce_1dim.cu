@@ -84,9 +84,10 @@ int main() {
         kernel_reduce_1dim<<<gs, bs>>>(d_in, d_out, N);
     } else if(av == 2) {
         kernel_reduce_1dim_v2<<<gs, bs>>>(d_in, d_out, N);
+    } else if(av == 3){
+        kernel_reduce_1dim_v3<<<gs, bs>>>(d_in, d_out, N);
     } else {
         kernel_reduce_1dim<<<gs, bs>>>(d_in, d_out, N);
-
     }
     CUDA_CHECK(cudaMemcpy(res.data(), d_out, bsx * sizeof(float), cudaMemcpyDeviceToHost));
     for (auto i: res) {
