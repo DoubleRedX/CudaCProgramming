@@ -1,0 +1,3 @@
+add_executable(c04_static_global_mem static_global_mem.cu)
+add_executable(unified_mem unified_mem.cu)
+add_executable(cudaMalloc cudaMalloc.cu)

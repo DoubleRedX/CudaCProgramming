@@ -1,22 +1,25 @@
 cmake_minimum_required(VERSION 3.16)
-
-#if(NOT DEFINED CMAKE_CUDA_ARCHITECTURES)
-#    set(CMAKE_CUDA_ARCHITECTURES 75)
-#endif()
-#set(CMAKE_CUDA_COMPILER "/usr/local/cuda-11.8/bin/nvcc")
-
 project(CudaCProgramming LANGUAGES C CXX CUDA)
 
-set(CMAKE_CUDA_ARCHITECTURES 80)
-set(CMAKE_C_STANDARD 17)
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CUDA_STANDARD 17)
+include(cmake/CPM.cmake)
+
+CPMAddPackage(
+        NAME spdlog
+        URL https://github.com/gabime/spdlog/archive/refs/tags/v1.15.0.zip
+)
+
+if(spdlog_ADDED)
+    link_libraries(spdlog::spdlog)
+endif()
 
 include_directories(include)
-
 add_subdirectory(c01)
 add_subdirectory(c03)
+add_subdirectory(c04)
 
+add_subdirectory(asm)
+add_subdirectory(intrinsics)
+add_subdirectory(nvidia_cuda_api)
 ##set_target_properties(CudaCProgramming PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
 #
 #add_executable(sumArrayOnHost sumArrayOnHost.cu)

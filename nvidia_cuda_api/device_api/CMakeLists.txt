@@ -1,0 +1,1 @@
+add_executable(__shfl_sync __shfl_sync.cu)

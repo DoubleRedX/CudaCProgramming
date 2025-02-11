@@ -5,6 +5,7 @@
 #include <helper.h>
 #include <iostream>
 #include <vector>
+#include <spdlog/spdlog.h>
 
 
 __global__ void kernel_reduce_1dim_unroll(float* din, float* dout, int n){
@@ -30,14 +31,16 @@ __global__ void kernel_reduce_1dim_unroll(float* din, float* dout, int n){
 
 
 __global__ void kernel_reduce_1dim_unroll_factor8(float* din, float* dout, int n){
+    // 线程束的展开
 
-    // 展开线程的规约
+    // 展开线程束的规约 + 每个线程块处理8个数据块
     auto tid = threadIdx.x;
     auto idx = tid + blockDim.x * blockIdx.x * 8;
 
     auto din_block = din + blockDim.x * blockIdx.x * 8;
 
     if(idx + 8 * blockDim.x < n){
+        // unroll 8 factor
         auto a0 = din[idx];
         auto a1 = din[idx + blockDim.x * 1];
         auto a2 = din[idx + blockDim.x * 2];
@@ -57,6 +60,7 @@ __global__ void kernel_reduce_1dim_unroll_factor8(float* din, float* dout, int n
         __syncthreads();
     }
     if(tid < 32){
+        // 线程束展开
         volatile auto *vmem = din_block;  // volatile强制写回内存
         vmem[tid] += vmem[tid + 32];
         vmem[tid] += vmem[tid + 16];
@@ -68,11 +72,39 @@ __global__ void kernel_reduce_1dim_unroll_factor8(float* din, float* dout, int n
     if(tid == 0) dout[blockIdx.x] = din_block[0];
 }
 
+
+__global__ void kernel_reduce_complete_unroll(float* din, float* dout, int n){
+    // unroll 8 factor + warp unroll + 循环展开
+
+    auto tid = threadIdx.x;
+    auto idx = tid + blockIdx.x * blockDim.x * 8;
+
+    if(idx + blockDim.x * 7< n){
+        auto a0 = din[idx];
+        auto a1 = din[idx + blockDim.x * 1];
+        auto a2 = din[idx + blockDim.x * 2];
+        auto a3 = din[idx + blockDim.x * 3];
+        auto a4 = din[idx + blockDim.x * 4];
+        auto a5 = din[idx + blockDim.x * 5];
+        auto a6 = din[idx + blockDim.x * 6];
+        auto a7 = din[idx + blockDim.x * 7];
+        din[idx] = a0 + a1 + a2 + a3 + a4 + a5 + a6 + a7;
+    }
+
+
+
+
+
+
+}
+
+
+
 int main() {
     cmdline::parser a;
     a.add<int>("factor", 'f', "unroll factor", false, 8);
 
-
+    spdlog::info("Welcome to spdlog!");
 
     auto av = a.get<int>("version");
     constexpr int N = 1024;

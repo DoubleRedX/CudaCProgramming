@@ -1,0 +1,8 @@
+set(CMAKE_CUDA_COMPILER "/usr/local/cuda-11.8/bin/nvcc")
+set(CMAKE_CUDA_ARCHITECTURES 86)
+
+set(CMAKE_C_STANDARD 17)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CUDA_STANDARD 17)
+
+set(CPM_SOURCE_CACHE "/data3/cll/codes/cprojects/cpm_cache" CACHE STRING "CPM CACHE DIR")
