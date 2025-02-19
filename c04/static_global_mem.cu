@@ -6,7 +6,7 @@
 #include <cstdio>
 #include "spdlog/spdlog.h"
 
-__device__ float devData = 1.0f;
+__device__ float devData = 1.0f;  // 静态声明的全局变量
 
 __global__ void checkGlobalVariable(){
     printf("Device: devData is %f\n", devData);

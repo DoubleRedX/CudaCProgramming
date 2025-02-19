@@ -20,6 +20,7 @@ add_subdirectory(c04)
 add_subdirectory(asm)
 add_subdirectory(intrinsics)
 add_subdirectory(nvidia_cuda_api)
+add_subdirectory(quantization)
 ##set_target_properties(CudaCProgramming PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
 #
 #add_executable(sumArrayOnHost sumArrayOnHost.cu)
