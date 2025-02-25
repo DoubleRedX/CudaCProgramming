@@ -70,3 +70,6 @@ int main(int argc, char** argv){
 
     return 0;
 }
+
+// 查看3090的时候，默认关闭1级缓存？都是80%也就是32字节的内存事务。
+// ncu --metrics smsp__sass_average_data_bytes_per_sector_mem_global_op_ld.pct ./unaligned_mem_access 127
