@@ -5,4 +5,5 @@ add_executable(cudaHostMalloc cudaHostMalloc.cu)
 
 add_executable(mem_accesse_mode mem_access_mode.cu)
 add_executable(unaligned_mem_access unaligned_mem_access.cu)
-add_executable(read_only_mem read_only_mem.cu)
+add_executable(read_only_mem read_only_cache.cu)
+add_executable(unaligned_mem_write unaligned_mem_write.cu)
