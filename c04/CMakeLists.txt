@@ -10,3 +10,7 @@ add_executable(unaligned_mem_write unaligned_mem_write.cu)
 
 add_executable(AoS AoS.cu)
 add_executable(SoA SoA.cpp)
+
+add_executable(bandwidth bandwidth.cu)
+add_executable(matrix_transpose matrix_transpose.cu)
+
