@@ -14,15 +14,15 @@ __global__ void matrix_transpose_row(T *in, T *out, int m, int n){
         out[i + j * m] = in[j + i * n];  // read i, j --> write j, i
     }
 }
-//
-//template<typename T>
-//__global__ void matrix_transpose_col(T *in, T *out, int m, int n){
-//    auto i = threadIdx.y + blockDim.y * blockIdx.y;
-//    auto j = threadIdx.x + blockDim.x * blockIdx.x;
-//    if(i < m && j < n){
-//        out[] = in[];
-//    }
-//}
+
+template<typename T>
+__global__ void matrix_transpose_col(T *in, T *out, int m, int n){
+    auto i = threadIdx.y + blockDim.y * blockIdx.y;
+    auto j = threadIdx.x + blockDim.x * blockIdx.x;
+    if(i < m && j < n){
+        out[j + i * n] = in[i + j * m];
+    }
+}
 
 
 int main(int argc, char** argv){
@@ -33,9 +33,21 @@ int main(int argc, char** argv){
 
     const int size = originalWidth * originalHeight * sizeof(float);
 
-    float h_input[] = {1.0f, 2.0f, 3.0f, 4.0f,
-                       5.0f, 6.0f, 7.0f, 8.0f,
-                       9.0f, 10.0f, 11.0f, 12.0f};
+    auto *h_input = new float[originalHeight * originalWidth];
+
+    for (int i=0; i < originalHeight; ++i){
+        for (int j=0;j < originalWidth; ++j){
+            h_input[j + i * originalWidth] = float (j + i * originalWidth);
+        }
+    }
+
+    for (int i = 0; i < originalHeight; ++i) {
+        for (int j = 0; j < originalWidth; ++j) {
+            printf("%.0f ", h_input[i * originalWidth + j]);
+        }
+        printf("\n");
+    }
+
     float h_output[originalWidth * originalHeight];
 
     float *d_input, *d_output;
@@ -48,13 +60,13 @@ int main(int argc, char** argv){
             (originalWidth + blockSize.x - 1) / blockSize.x,
             (originalHeight + blockSize.y - 1) / blockSize.y
     );
-    matrix_transpose_row<<<gridSize, blockSize>>>(d_input, d_output, originalHeight, originalWidth);
+    matrix_transpose_col<<<gridSize, blockSize>>>(d_input, d_output, originalHeight, originalWidth);
 
     cudaMemcpy(h_output, d_output, size, cudaMemcpyDeviceToHost);
 
     for (int i = 0; i < originalWidth; ++i) {
         for (int j = 0; j < originalHeight; ++j) {
-            printf("%.0f ", h_output[i * originalWidth + j]);
+            printf("%.0f ", h_output[i * originalHeight + j]);
         }
         printf("\n");
     }
