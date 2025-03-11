@@ -8,7 +8,8 @@
 
 template<typename T>
 __global__ void matrix_transpose_row(T *in, T *out, int m, int n){
-    auto i = threadIdx.y + blockIdx.y * blockDim.y;
+    // 按行读取：threadIdx.x维度所在为矩阵的行
+    auto i = threadIdx.y + blockIdx.y * blockDim.y;  // 两个kernel中的i/j都遵循数学中i和j的定义。
     auto j = threadIdx.x + blockIdx.x * blockDim.x;
     if(i < m && j < n){
         out[i + j * m] = in[j + i * n];  // read i, j --> write j, i
@@ -17,10 +18,11 @@ __global__ void matrix_transpose_row(T *in, T *out, int m, int n){
 
 template<typename T>
 __global__ void matrix_transpose_col(T *in, T *out, int m, int n){
-    auto i = threadIdx.y + blockDim.y * blockIdx.y;
-    auto j = threadIdx.x + blockDim.x * blockIdx.x;
+    // 按列读取：threadIdx.x维度所在为矩阵的列
+    auto i = threadIdx.x + blockDim.x * blockIdx.x;
+    auto j = threadIdx.y + blockDim.y * blockIdx.y;
     if(i < m && j < n){
-        out[j + i * n] = in[i + j * m];
+        out[i + j * m] = in[j + i * n];
     }
 }
 
@@ -60,7 +62,7 @@ int main(int argc, char** argv){
             (originalWidth + blockSize.x - 1) / blockSize.x,
             (originalHeight + blockSize.y - 1) / blockSize.y
     );
-    matrix_transpose_col<<<gridSize, blockSize>>>(d_input, d_output, originalHeight, originalWidth);
+    matrix_transpose_row<<<gridSize, blockSize>>>(d_input, d_output, originalHeight, originalWidth);
 
     cudaMemcpy(h_output, d_output, size, cudaMemcpyDeviceToHost);
 
