@@ -5,7 +5,8 @@ include(cmake/CPM.cmake)
 
 CPMAddPackage(
         NAME spdlog
-        URL https://github.com/gabime/spdlog/archive/refs/tags/v1.15.0.zip
+#        URL https://github.com/gabime/spdlog/archive/refs/tags/v1.15.0.zip
+        SOURCE_DIR /data3/cll/codes/cprojects/book_cuda_c_programming/3rd/spdlog-1.15.1
 )
 
 if(spdlog_ADDED)
