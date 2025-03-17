@@ -13,6 +13,33 @@ if(spdlog_ADDED)
     link_libraries(spdlog::spdlog)
 endif()
 
+set(CMAKE_CUDA_ARCHITECTURES 86)
+
+# 查找CUDA并检测架构
+find_package(CUDAToolkit REQUIRED)
+message(CMAKE_CUDA_ARCHITECTURES:  ${CMAKE_CUDA_ARCHITECTURES})
+if (NOT DEFINED CMAKE_CUDA_ARCHITECTURES OR CMAKE_CUDA_ARCHITECTURES STREQUAL "")  # 动态监测GPU架构
+    execute_process(
+            COMMAND nvidia-smi --query-gpu=compute_cap --format=csv,noheader
+            OUTPUT_VARIABLE GPU_ARCH
+            OUTPUT_STRIP_TRAILING_WHITESPACE
+    )
+    if (GPU_ARCH)
+        # 提取计算能力并设置 CMAKE_CUDA_ARCHITECTURES
+        # 多GPU系统 和 单GPU系统统一考虑
+        #        string(REPLACE "\n" ";" GPU_ARCH_LIST "${GPU_ARCH}")
+        #        list(GET GPU_ARCH_LIST 0 GPU_ARCH)  # 选择第一个 GPU 的计算能力
+
+        string(REPLACE "." "" GPU_ARCH "${GPU_ARCH}")
+        set(CMAKE_CUDA_ARCHITECTURES ${GPU_ARCH} CACHE STRING "CUDA architectures" FORCE)
+        message(STATUS "Detected GPU architecture: sm_${GPU_ARCH}")
+    else()
+        # 如果检测失败，报致命错误
+        message(FATAL_ERROR "Failed to detect GPU architecture. Please manually set CMAKE_CUDA_ARCHITECTURES.")
+    endif()
+endif()
+
+
 include_directories(include)
 add_subdirectory(c01)
 add_subdirectory(c03)

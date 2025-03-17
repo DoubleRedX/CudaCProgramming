@@ -1,3 +1,5 @@
+set(CMAKE_CUDA_ARCHITECTURES 86)
+
 add_executable(c04_static_global_mem static_global_mem.cu)
 add_executable(unified_mem unified_mem.cu)
 add_executable(cudaMalloc cudaMalloc.cu)
@@ -13,4 +15,10 @@ add_executable(SoA SoA.cpp)
 
 add_executable(bandwidth bandwidth.cu)
 add_executable(matrix_transpose matrix_transpose.cu)
+set_property(
+        TARGET matrix_transpose
+        PROPERTY CUDA_ARCHITECTURES 80
+)
+
+
 

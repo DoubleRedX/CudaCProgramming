@@ -34,11 +34,10 @@ __global__ void matrix_transpose_row_unroll4(T *in, T *out, int m, int n){
     auto j = threadIdx.x + blockDim.x * blockIdx.x * 4;
     auto i = threadIdx.y + blockDim.y * blockIdx.y;
 
-    if (i >= m) return;
-
-    auto read_idx = j + i * m;
-    auto write_idx = i + j * n;
-    if(i < m && (j + blockDim.x * 3) < n){
+    auto read_idx = j + i * n;
+    auto write_idx = i + j * m;
+    if(j + blockDim.x * 3 < n && i < m ){
+        printf("incycle");
         out[write_idx] = in[read_idx];
         out[write_idx + m * blockDim.x] = in[read_idx + blockDim.x];
         out[write_idx + m * blockDim.x * 2] = in[read_idx + blockDim.x * 2];
@@ -63,8 +62,6 @@ __global__ void matrix_transpose_row_unroll(T *in, T *out, int ny, int nx){
 
 
 int main(int argc, char** argv){
-
-
     const int originalHeight = 64;
     const int originalWidth = 64;
     const long long size = originalWidth * originalHeight * sizeof(float);
@@ -72,7 +69,7 @@ int main(int argc, char** argv){
     auto *h_input = new float[originalHeight * originalWidth];
     for (int i=0; i < originalHeight; ++i){
         for (int j=0;j < originalWidth; ++j){
-            h_input[j + i * originalWidth] = float (j + i * originalWidth);
+            h_input[j + i * originalWidth] = static_cast<float>(j + i * originalWidth);
         }
     }
 
@@ -93,7 +90,7 @@ int main(int argc, char** argv){
 
     dim3 blockSize(32, 32);
     dim3 gridSize(
-            (originalWidth + blockSize.x - 1) / blockSize.x,
+            (originalWidth + blockSize.x * 4 - 1) / (blockSize.x * 4),
             (originalHeight + blockSize.y - 1) / blockSize.y
     );
     auto start = std::chrono::high_resolution_clock::now();
@@ -107,7 +104,7 @@ int main(int argc, char** argv){
     std::cout << "Effective Bandwidth: " << ibnd << "GB/s" << std::endl;
 
 
-    cudaMemcpy(h_output, d_output, size, cudaMemcpyDeviceToHost);
+    CUDA_CHECK(cudaMemcpy(h_output, d_output, size, cudaMemcpyDeviceToHost));
 
     for (int i = 0; i < originalWidth; ++i) {
         for (int j = 0; j < originalHeight; ++j) {
@@ -120,5 +117,6 @@ int main(int argc, char** argv){
     cudaFree(d_output);
 
     delete[] h_input;
+    delete[] h_output;
     return 0;
 }

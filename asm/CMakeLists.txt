@@ -23,5 +23,6 @@ add_executable(shl shl.cu)
 add_executable(sub sub.cu)
 add_executable(shr shr.cu)
 
+add_executable(cvt_rni_sat_u8_f32 cvt_rni_sat_u8_f32.cu)
 
 add_subdirectory(compose)
