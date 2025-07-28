@@ -71,6 +71,8 @@ int main(int argc, char **argv) {
     cudaSetDevice(device);
     constexpr int m = 10000;
     constexpr int n = 8000;
+    // constexpr int m = 1920;
+    // constexpr int n = 1080 ;
 
     std::vector<float> hma(m * n); // std::vector<float> hma(m * n, 0.0); // 按行优先存储
     std::vector<float> hmb(m * n);

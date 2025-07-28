@@ -6,12 +6,39 @@
       <paths name="weitu11_env_cuda (40ffda92-a6e4-42e3-b6e5-a38abe5a9d40)">
         <serverdata>
           <mappings>
-            <mapping deploy="/codes/cprojects/book_cuda_c_programming" local="$PROJECT_DIR$" />
+            <mapping deploy="/data3/cll/codes/cprojects/book_cuda_c_programming" local="$PROJECT_DIR$" />
           </mappings>
           <excludedPaths>
             <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-debug-weitu11_env_cuda" />
             <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-debug-weitu11_env_cuda" />
           </excludedPaths>
+        </serverdata>
+      </paths>
+      <paths name="weitu12_cu118 (80a25095-e102-4520-bfdb-2fad72c01e95)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/data3/cll/codes/cprojects/book_cuda_c_programming" local="$PROJECT_DIR$" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-debug-weitu11_env_cuda" />
+            <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-release-weitu12_cu118" />
+            <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-release-weitu12_cu118" />
+            <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-debug-weitu11_env_cuda" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
+      <paths name="weitu163_rocm (0cc6cf2b-8821-4494-aff3-7c7e18313ddd)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/tmp/tmp.ChqLSESrCe/cudacprogramming" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="weitu163_rocm_rc4 (a2208951-8523-4582-a9cb-d2b820f15871)">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
         </serverdata>
       </paths>
       <paths name="weitu16_dtk (0a3efbeb-7af0-4af6-82ff-7230701edf75)">

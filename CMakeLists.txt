@@ -1,13 +1,16 @@
 cmake_minimum_required(VERSION 3.16)
+set(CMAKE_CUDA_COMPILER "/usr/local/cuda/bin/nvcc")
+set(CMAKE_CUDA_ARCHITECTURES 86)
+
 project(CudaCProgramming LANGUAGES C CXX CUDA)
 
 include(cmake/CPM.cmake)
 
-CPMAddPackage(
-        NAME spdlog
-#        URL https://github.com/gabime/spdlog/archive/refs/tags/v1.15.0.zip
-        SOURCE_DIR /data3/cll/codes/cprojects/book_cuda_c_programming/3rd/spdlog-1.15.1
-)
+#CPMAddPackage(
+#        NAME spdlog
+##        URL https://github.com/gabime/spdlog/archive/refs/tags/v1.15.0.zip
+#        SOURCE_DIR /data3/cll/codes/cprojects/book_cuda_c_programming/3rd/spdlog-1.15.1
+#)  # EXCLUDE_FROM_ALL？
 
 if(spdlog_ADDED)
     link_libraries(spdlog::spdlog)
@@ -44,6 +47,7 @@ include_directories(include)
 add_subdirectory(c01)
 add_subdirectory(c03)
 add_subdirectory(c04)
+add_subdirectory(c05)
 
 add_subdirectory(asm)
 add_subdirectory(intrinsics)
@@ -69,3 +73,12 @@ add_subdirectory(utils)
 #add_executable(2d_grid 2d_grid.cu)
 
 add_executable(main main.cpp)
+
+add_subdirectory(meta)
+add_subdirectory(cpp)
+
+
+add_subdirectory(share_mem)
+add_subdirectory(cuda_keter_top)
+add_subdirectory(cooperative)
+add_subdirectory(leetcuda)

@@ -13,8 +13,26 @@ __global__ void test_vabsss2() {
     printf("Result of __vabsss2: (%d, %d)\n", result.x, result.y);
 }
 
+__device__ void ldg(){
+    uchar2 uc2 {50, 100};
+    const uchar2* uc2_ptr = &uc2;
+    auto res = __ldg(uc2_ptr);
+    printf("%d, %d", res.x, res.y);
+}
+
+__global__ void device_call(){
+    uchar2 uc2 {50, 100};
+    const uchar2* uc2_ptr = &uc2;
+    auto res = __ldg(uc2_ptr);
+    printf("222  %d, %d", res.x, res.y);
+}
+
+
 int main() {
     test_vabsss2<<<1, 1>>>();
+    cudaDeviceSynchronize();
+
+    device_call<<<1,1>>>();
     cudaDeviceSynchronize();
     return 0;
 }

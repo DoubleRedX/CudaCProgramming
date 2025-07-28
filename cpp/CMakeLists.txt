@@ -1,0 +1,1 @@
+add_executable(auto_deduce_diff_type auto_deduce_diff_type.cpp)

@@ -1,4 +1,4 @@
-set(CMAKE_CUDA_COMPILER "/usr/local/cuda-11.8/bin/nvcc")
+set(CMAKE_CUDA_COMPILER "/usr/local/cuda-12.4/bin/nvcc")
 set(CMAKE_CUDA_ARCHITECTURES 86)
 
 set(CMAKE_C_STANDARD 17)
